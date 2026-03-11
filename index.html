@@ -11,6 +11,13 @@
 <meta property="og:description" content="CSE undergrad building real-world solutions across Full Stack, Blockchain & ML."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://Iampriyanshu2503.github.io"/>
+<meta property="og:image" content="https://Iampriyanshu2503.github.io/photo.jpeg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Priyanshu Roy"/>
+<meta name="twitter:description" content="CSE undergrad building real-world solutions across Full Stack, Blockchain & ML."/>
+<meta name="twitter:image" content="https://Iampriyanshu2503.github.io/photo.jpeg"/>
 <link rel="icon" type="image/png" href="favicon.ico"/>
 <link rel="apple-touch-icon" href="favicon.ico"/>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -416,11 +423,11 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 }
 .cert-card:hover .cert-thumb{transform:scale(1.03);filter:grayscale(0%);}
 .cert-modal-overlay{
-  display:none;position:fixed;inset:0;z-index:9999;
-  background:rgba(0,0,0,.88);backdrop-filter:blur(8px);
+  display:none;position:fixed;inset:0;z-index:99999;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(12px);
   align-items:center;justify-content:center;padding:24px;
 }
-.cert-modal-overlay.open{display:flex;}
+.cert-modal-overlay.open{display:flex !important;}
 .cert-modal-inner{
   position:relative;max-width:860px;width:100%;
   animation:modalIn .25s ease;
@@ -488,8 +495,8 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 .cert-card.visible{animation:certCardIn .5s ease forwards;}
 .cert-card:not(.visible){opacity:0;}
 .cert-card.visible .cert-thumb{animation:certThumbReveal .6s .2s ease both;}
-.cert-card{animation:certGlow 3s ease-in-out infinite;}
-.cert-card.spec{animation:certGlowGreen 3s ease-in-out infinite;}
+.cert-card{box-shadow:none;}
+.cert-card.spec{box-shadow:none;}
 
 /* staggered delays for cert cards */
 .certs-grid .cert-card:nth-child(1){animation-delay:.05s}
@@ -1435,22 +1442,26 @@ window.addEventListener('load', function(){
 
 // ── CERT MODAL ────────────────────────────────────────────────
 function openCertModal(src, title){
-  document.getElementById('certModalImg').src = src;
-  document.getElementById('certModalTitle').textContent = title;
-  document.getElementById('certModal').classList.add('open');
+  var modal = document.getElementById('certModal');
+  var img   = document.getElementById('certModalImg');
+  var ttl   = document.getElementById('certModalTitle');
+  if(!modal || !img || !ttl){ console.error('Modal elements missing'); return; }
+  img.src = src;
+  ttl.textContent = title;
+  modal.style.display = 'flex';
+  modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeCertModal(e){
-  if(e.target === document.getElementById('certModal')){
-    document.getElementById('certModal').classList.remove('open');
+  var modal = document.getElementById('certModal');
+  if(!e || e.target === modal){
+    modal.style.display = 'none';
+    modal.classList.remove('open');
     document.body.style.overflow = '';
   }
 }
 document.addEventListener('keydown', function(e){
-  if(e.key==='Escape'){
-    document.getElementById('certModal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  if(e.key==='Escape') closeCertModal();
 });
 
 // ── EXPERIENCE CARD 3D TILT ───────────────────────────────────
@@ -1487,7 +1498,33 @@ document.querySelectorAll('.proj-card').forEach(function(card){
 </script>
 
 <!-- CERT MODAL -->
-<div class="cert-modal-overlay" id="certModal" onclick="closeCertModal(event)">
-  <div class="cert-modal-inner">
-    <button class="cert-modal-close" onclick="document.getElementById('certModal').classList.remove('open')">✕</button>
-    <img src=
+<div id="certModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:24px;">
+  <div style="position:relative;max-width:860px;width:100%;animation:modalIn .25s ease;">
+    <button onclick="closeCert()" style="position:absolute;top:-16px;right:-16px;width:36px;height:36px;border-radius:50%;background:#00d9ff;color:#060a0f;border:none;font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;">✕</button>
+    <img id="certModalImg" src="" style="width:100%;border-radius:10px;border:1px solid rgba(0,217,255,.3);box-shadow:0 0 80px rgba(0,217,255,.2);display:block;" alt="Certificate"/>
+    <div id="certModalTitle" style="font-family:'Share Tech Mono',monospace;font-size:11px;color:#00d9ff;letter-spacing:2px;text-align:center;margin-top:14px;text-transform:uppercase;"></div>
+  </div>
+</div>
+
+<script>
+function openCertModal(src, title) {
+  var m = document.getElementById('certModal');
+  document.getElementById('certModalImg').src = src;
+  document.getElementById('certModalTitle').textContent = title;
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeCert() {
+  document.getElementById('certModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.getElementById('certModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCert();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCert();
+});
+</script>
+
+</body>
+</html>
