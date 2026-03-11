@@ -178,24 +178,90 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 }
 
 /* CERTS */
-.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;}
-.cert-card{padding:22px;background:var(--surface);border:1px solid var(--border);position:relative;overflow:hidden;transition:all .3s;}
-.cert-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent2),transparent);transform:scaleX(0);transition:transform .3s;}
-.cert-card:hover{border-color:var(--accent2);}
-.cert-card:hover::before{transform:scaleX(1);}
+.certs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:1100px){.certs-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:750px){.certs-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.certs-grid{grid-template-columns:1fr;}}
+.cert-card{
+  padding:24px 20px;
+  background:rgba(13,20,32,.8);
+  border:1px solid rgba(0,217,255,.1);
+  border-radius:10px;
+  position:relative;overflow:hidden;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  display:flex;flex-direction:column;gap:10px;
+}
+.cert-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  transform:scaleX(0);transform-origin:center;transition:transform .35s;
+}
+.cert-card:hover{transform:translateY(-5px);border-color:rgba(0,217,255,.35);box-shadow:0 16px 40px rgba(0,217,255,.1);}
+.cert-card:hover::after{transform:scaleX(1);}
+.cert-card.spec::after{background:linear-gradient(90deg,transparent,var(--accent2),transparent);}
+.cert-card.spec:hover{border-color:rgba(127,255,95,.35);box-shadow:0 16px 40px rgba(127,255,95,.1);}
+.cert-icon{font-size:24px;margin-bottom:4px;}
+.cert-issuer{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:2px;}
+.cert-card.spec .cert-issuer{color:var(--accent2);}
+.cert-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--heading);line-height:1.3;}
+.cert-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.05);}
+.cert-year{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;}
+.cert-type{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 8px;border-radius:3px;background:rgba(0,217,255,.08);border:1px solid rgba(0,217,255,.2);color:var(--accent);letter-spacing:1px;}
+.cert-card.spec .cert-type{background:rgba(127,255,95,.08);border-color:rgba(127,255,95,.2);color:var(--accent2);}
+.cert-verify{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--accent);text-decoration:none;opacity:.6;transition:opacity .2s;margin-top:6px;}
+.cert-verify:hover{opacity:1;}
 .cert-issuer{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
 .cert-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:var(--heading);line-height:1.4;margin-bottom:6px;}
 .cert-year{font-size:11px;color:var(--muted);}
 
 /* CONTACT */
-#contact-section{text-align:center;}
-.contact-inner{max-width:580px;margin:0 auto;}
-.contact-tagline{font-family:'Syne',sans-serif;font-size:clamp(26px,5vw,48px);font-weight:800;color:var(--heading);letter-spacing:-1px;margin-bottom:20px;}
+#contact-section{text-align:center;position:relative;overflow:hidden;padding:120px 52px 80px;}
+#contact-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(0,217,255,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+#contact-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.5;}
+.contact-inner{position:relative;z-index:1;max-width:700px;margin:0 auto;}
+.contact-eyebrow{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:12px;}
+.contact-eyebrow::before,.contact-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--accent));}
+.contact-eyebrow::after{background:linear-gradient(90deg,var(--accent),transparent);}
+.contact-tagline{
+  font-family:'Syne',sans-serif;font-size:clamp(36px,6vw,72px);font-weight:800;
+  color:var(--heading);letter-spacing:-2px;line-height:1.05;margin-bottom:24px;
+}
+.contact-tagline .word-animate{display:inline-block;overflow:hidden;}
+.contact-tagline .word-inner{display:inline-block;transform:translateY(100%);animation:wordUp .7s ease forwards;}
 .contact-tagline span{color:var(--accent);}
-.contact-desc{color:var(--muted);margin-bottom:44px;line-height:1.8;}
-.contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
-.contact-link{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--muted);text-decoration:none;padding:11px 22px;border:1px solid var(--border);transition:all .3s;}
-.contact-link:hover{color:var(--accent);border-color:var(--accent);background:rgba(0,217,255,.05);}
+@keyframes wordUp{to{transform:translateY(0)}}
+.contact-sub{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:48px;max-width:420px;margin-left:auto;margin-right:auto;}
+.contact-cards{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:48px;}
+.contact-card{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:24px 28px;min-width:150px;
+  background:rgba(13,20,32,.8);border:1px solid rgba(0,217,255,.15);border-radius:12px;
+  text-decoration:none;color:var(--muted);
+  transition:transform .3s,border-color .3s,box-shadow .3s,color .3s;
+  position:relative;overflow:hidden;
+}
+.contact-card::before{
+  content:'';position:absolute;inset:0;border-radius:12px;
+  background:radial-gradient(circle at 50% 0%,rgba(0,217,255,.1),transparent 70%);
+  opacity:0;transition:opacity .3s;
+}
+.contact-card:hover{transform:translateY(-8px);border-color:var(--accent);box-shadow:0 20px 50px rgba(0,217,255,.15);color:var(--heading);}
+.contact-card:hover::before{opacity:1;}
+.contact-card-icon{font-size:28px;transition:transform .3s;}
+.contact-card:hover .contact-card-icon{transform:scale(1.2);}
+.contact-card-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;}
+.contact-card-val{font-size:12px;color:var(--accent);font-family:'Share Tech Mono',monospace;letter-spacing:.5px;}
+.contact-availability{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 24px;border:1px solid rgba(127,255,95,.25);border-radius:40px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent2);
+  background:rgba(127,255,95,.04);
+}
+.contact-avail-dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);animation:pulse 2s ease-in-out infinite;}
 
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:22px 52px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
@@ -331,6 +397,114 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 .proj-card.cyber:hover{animation:cyberGlow 2s ease-in-out infinite;}
 
 
+
+/* CERT THUMBNAILS & MODAL */
+.cert-thumb{
+  width:100%;height:120px;object-fit:cover;object-position:top center;
+  border-radius:6px;margin-bottom:12px;border:1px solid rgba(255,255,255,.07);
+  transition:transform .3s,filter .3s;filter:grayscale(20%);
+  display:block;cursor:pointer;
+}
+.cert-card:hover .cert-thumb{transform:scale(1.03);filter:grayscale(0%);}
+.cert-modal-overlay{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,.88);backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:24px;
+}
+.cert-modal-overlay.open{display:flex;}
+.cert-modal-inner{
+  position:relative;max-width:860px;width:100%;
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.cert-modal-img{
+  width:100%;border-radius:10px;
+  border:1px solid rgba(0,217,255,.2);
+  box-shadow:0 0 80px rgba(0,217,255,.15);
+  display:block;
+}
+.cert-modal-close{
+  position:absolute;top:-16px;right:-16px;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--accent);color:var(--bg);
+  border:none;font-size:18px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 20px rgba(0,217,255,.4);
+  transition:transform .2s,background .2s;
+}
+.cert-modal-close:hover{transform:scale(1.1);background:#fff;}
+.cert-modal-title{
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  color:var(--accent);letter-spacing:2px;text-align:center;
+  margin-top:14px;text-transform:uppercase;
+}
+
+/* ── EXPERIENCE ANIMATIONS ─────────────────────────────── */
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 4px rgba(0,217,255,.2),0 0 20px var(--accent)}50%{box-shadow:0 0 0 8px rgba(0,217,255,.08),0 0 40px var(--accent),0 0 60px rgba(0,217,255,.2)}}
+@keyframes dotPulseGreen{0%,100%{box-shadow:0 0 0 4px rgba(127,255,95,.2),0 0 20px var(--accent2)}50%{box-shadow:0 0 0 8px rgba(127,255,95,.08),0 0 40px var(--accent2),0 0 60px rgba(127,255,95,.2)}}
+@keyframes lineGrow{from{transform:scaleY(0);transform-origin:top}to{transform:scaleY(1);transform-origin:top}}
+@keyframes cardSlideIn{from{opacity:0;transform:perspective(800px) translateX(-40px) rotateY(8deg)}to{opacity:1;transform:perspective(800px) translateX(0) rotateY(0deg)}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+
+.exp-timeline::before{animation:lineGrow 1.2s ease forwards;}
+.exp-dot{animation:dotPulse 2.5s ease-in-out infinite;}
+.exp-card.green-card .exp-dot{animation:dotPulseGreen 2.5s ease-in-out infinite;}
+.exp-card.visible{animation:cardSlideIn .6s ease forwards;}
+.exp-card:not(.visible){opacity:0;}
+
+/* shimmer on role text */
+.exp-role{
+  background:linear-gradient(90deg, var(--heading) 30%, var(--accent) 50%, var(--heading) 70%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
+.exp-card.green-card .exp-role{
+  background:linear-gradient(90deg, var(--heading) 30%, var(--accent2) 50%, var(--heading) 70%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* floating tag animation */
+.exp-tag{transition:transform .2s,border-color .2s,color .2s,box-shadow .2s;}
+.exp-tag:hover{transform:translateY(-3px);box-shadow:0 4px 16px rgba(0,217,255,.2);}
+.exp-card.green-card .exp-tag:hover{box-shadow:0 4px 16px rgba(127,255,95,.2);}
+
+/* ── CERTIFICATIONS ANIMATIONS ──────────────────────────── */
+@keyframes certCardIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes certThumbReveal{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0% 0 0 0)}}
+@keyframes certGlow{0%,100%{box-shadow:none}50%{box-shadow:0 0 24px rgba(0,217,255,.15)}}
+@keyframes certGlowGreen{0%,100%{box-shadow:none}50%{box-shadow:0 0 24px rgba(127,255,95,.15)}}
+
+.cert-card.visible{animation:certCardIn .5s ease forwards;}
+.cert-card:not(.visible){opacity:0;}
+.cert-card.visible .cert-thumb{animation:certThumbReveal .6s .2s ease both;}
+.cert-card{animation:certGlow 3s ease-in-out infinite;}
+.cert-card.spec{animation:certGlowGreen 3s ease-in-out infinite;}
+
+/* staggered delays for cert cards */
+.certs-grid .cert-card:nth-child(1){animation-delay:.05s}
+.certs-grid .cert-card:nth-child(2){animation-delay:.1s}
+.certs-grid .cert-card:nth-child(3){animation-delay:.15s}
+.certs-grid .cert-card:nth-child(4){animation-delay:.2s}
+.certs-grid .cert-card:nth-child(5){animation-delay:.25s}
+.certs-grid .cert-card:nth-child(6){animation-delay:.3s}
+.certs-grid .cert-card:nth-child(7){animation-delay:.35s}
+.certs-grid .cert-card:nth-child(8){animation-delay:.4s}
+.certs-grid .cert-card:nth-child(9){animation-delay:.45s}
+.certs-grid .cert-card:nth-child(10){animation-delay:.5s}
+.certs-grid .cert-card:nth-child(11){animation-delay:.55s}
+.certs-grid .cert-card:nth-child(12){animation-delay:.6s}
+
+/* cert name hover underline sweep */
+.cert-name{position:relative;display:inline-block;}
+.cert-name::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--accent);transition:width .3s;}
+.cert-card.spec .cert-name::after{background:var(--accent2);}
+.cert-card:hover .cert-name::after{width:100%;}
+
+/* verify link bounce */
+.cert-verify{display:inline-block;transition:transform .2s,opacity .2s;}
+.cert-verify:hover{transform:translateX(4px);opacity:1 !important;}
 </style>
 </head>
 <body>
@@ -512,7 +686,7 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 </div>
 
 <!-- EXPERIENCE -->
-<div class="section-wrap" id="experience">
+<div class="section-wrap" id="experience" style="max-width:100%;">
   <div class="section-header reveal"><span class="section-num">// 04</span><h2 class="section-title">Experience</h2><div class="section-line"></div></div>
   <div class="exp-timeline">
 
@@ -559,27 +733,177 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 </div>
 
 <!-- CERTIFICATIONS -->
-<div class="section-wrap">
+<div class="section-wrap" style="max-width:100%;">
   <div class="section-header reveal"><span class="section-num">// 06</span><h2 class="section-title">Certifications</h2><div class="section-line"></div></div>
   <div class="certs-grid">
-    <div class="cert-card reveal"><div class="cert-issuer">Meta</div><div class="cert-name">Full Stack Developer</div><div class="cert-year">2026</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">University at Buffalo</div><div class="cert-name">Blockchain Specialization</div><div class="cert-year">2025</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">Stanford Online</div><div class="cert-name">Machine Learning</div><div class="cert-year">2025</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">Google</div><div class="cert-name">CyberSecurity</div><div class="cert-year">2025</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">Oracle</div><div class="cert-name">Generative AI</div><div class="cert-year">2025</div></div>
+
+    <!-- SPECIALIZATIONS / PROFESSIONAL CERTS -->
+    <div class="cert-card spec reveal" onclick="openCertModal('cert_ml.jpg','Machine Learning Specialization')" style="cursor:pointer;">
+      <img src="cert_ml.jpg" class="cert-thumb" alt="ML Cert"/>
+      <div class="cert-issuer">Stanford · DeepLearning.AI</div>
+      <div class="cert-name">Machine Learning Specialization</div>
+      <div class="cert-meta">
+        <span class="cert-year">Oct 2025</span>
+        <span class="cert-type">SPECIALIZATION</span>
+      </div>
+      <a href="https://coursera.org/verify/specialization/S21CKRJ39XL7" target="_blank" class="cert-verify">↗ Verify Certificate</a>
+    </div>
+
+    <div class="cert-card spec reveal" onclick="openCertModal('cert_blockchain.jpg','Blockchain Specialization')" style="cursor:pointer;">
+      <img src="cert_blockchain.jpg" class="cert-thumb" alt="Blockchain Cert"/>
+      <div class="cert-issuer">University at Buffalo</div>
+      <div class="cert-name">Blockchain Specialization</div>
+      <div class="cert-meta">
+        <span class="cert-year">Dec 2025</span>
+        <span class="cert-type">SPECIALIZATION</span>
+      </div>
+      <a href="https://coursera.org/verify/specialization/YBB1XD76F1AR" target="_blank" class="cert-verify">↗ Verify Certificate</a>
+    </div>
+
+    <div class="cert-card spec reveal" onclick="openCertModal('cert_meta_ios.jpg','Meta iOS Developer')" style="cursor:pointer;">
+      <img src="cert_meta_ios.jpg" class="cert-thumb" alt="Meta iOS Cert"/>
+      <div class="cert-issuer">Meta · Coursera</div>
+      <div class="cert-name">Meta iOS Developer</div>
+      <div class="cert-meta">
+        <span class="cert-year">Nov 2025</span>
+        <span class="cert-type">PROFESSIONAL CERT</span>
+      </div>
+      <a href="https://coursera.org/verify/professional-cert/9FIHIKUUF5N2" target="_blank" class="cert-verify">↗ Verify Certificate</a>
+    </div>
+
+    <div class="cert-card spec reveal" onclick="openCertModal('cert_google_cyber.jpg','Google Cybersecurity Professional')" style="cursor:pointer;">
+      <img src="cert_google_cyber.jpg" class="cert-thumb" alt="Google Cyber Cert"/>
+      <div class="cert-issuer">Google · Coursera</div>
+      <div class="cert-name">Google Cybersecurity Professional</div>
+      <div class="cert-meta">
+        <span class="cert-year">Dec 2025</span>
+        <span class="cert-type">PROFESSIONAL CERT</span>
+      </div>
+      <a href="https://coursera.org/verify/professional-cert/3G0PX3T2ISTX" target="_blank" class="cert-verify">↗ Verify Certificate</a>
+    </div>
+
+    <!-- COURSE CERTS -->
+    <div class="cert-card reveal" onclick="openCertModal('cert_oracle.jpg','Oracle Generative AI Professional')" style="cursor:pointer;">
+      <img src="cert_oracle.jpg" class="cert-thumb" alt="Oracle Cert"/>
+      <div class="cert-issuer">Oracle University</div>
+      <div class="cert-name">OCI 2025 Generative AI Professional</div>
+      <div class="cert-meta">
+        <span class="cert-year">Oct 2025</span>
+        <span class="cert-type">CERTIFIED PROF</span>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" onclick="openCertModal('cert_ethical_hack.jpg','Ethical Hacker — Cisco')" style="cursor:pointer;">
+      <img src="cert_ethical_hack.jpg" class="cert-thumb" alt="Ethical Hacker Cert"/>
+      <div class="cert-issuer">Cisco Networking Academy</div>
+      <div class="cert-name">Ethical Hacker</div>
+      <div class="cert-meta">
+        <span class="cert-year">Sep 2025</span>
+        <span class="cert-type">COURSE</span>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" onclick="openCertModal('cert_linux.jpg','Introduction to Linux (LFS101)')" style="cursor:pointer;">
+      <img src="cert_linux.jpg" class="cert-thumb" alt="Linux Cert"/>
+      <div class="cert-issuer">The Linux Foundation</div>
+      <div class="cert-name">Introduction to Linux (LFS101)</div>
+      <div class="cert-meta">
+        <span class="cert-year">Sep 2025</span>
+        <span class="cert-type">COURSE</span>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" onclick="openCertModal('cert_java.jpg','Java Programming Fundamentals')" style="cursor:pointer;">
+      <img src="cert_java.jpg" class="cert-thumb" alt="Java Cert"/>
+      <div class="cert-issuer">Infosys Springboard</div>
+      <div class="cert-name">Java Programming Fundamentals</div>
+      <div class="cert-meta">
+        <span class="cert-year">Sep 2025</span>
+        <span class="cert-type">COURSE</span>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" onclick="openCertModal('cert_ibm_se.jpg','Introduction to Software Engineering — IBM')" style="cursor:pointer;">
+      <img src="cert_ibm_se.jpg" class="cert-thumb" alt="IBM SE Cert"/>
+      <div class="cert-issuer">IBM · Coursera</div>
+      <div class="cert-name">Introduction to Software Engineering</div>
+      <div class="cert-meta">
+        <span class="cert-year">Nov 2025</span>
+        <span class="cert-type">COURSE</span>
+      </div>
+      <a href="https://coursera.org/verify/R10F39GYPLAL" target="_blank" class="cert-verify">↗ Verify Certificate</a>
+    </div>
+
+    <div class="cert-card reveal" onclick="openCertModal('cert_iot.jpg','Introduction to IoT — Cisco')" style="cursor:pointer;">
+      <img src="cert_iot.jpg" class="cert-thumb" alt="IoT Cert"/>
+      <div class="cert-issuer">Cisco Networking Academy</div>
+      <div class="cert-name">Introduction to IoT</div>
+      <div class="cert-meta">
+        <span class="cert-year">Sep 2025</span>
+        <span class="cert-type">COURSE</span>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" onclick="openCertModal('cert_cpp.jpg','Introduction to C++ — Simplilearn')" style="cursor:pointer;">
+      <img src="cert_cpp.jpg" class="cert-thumb" alt="C++ Cert"/>
+      <div class="cert-issuer">Simplilearn SkillUp</div>
+      <div class="cert-name">Introduction to C++</div>
+      <div class="cert-meta">
+        <span class="cert-year">Nov 2025</span>
+        <span class="cert-type">COURSE</span>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" style="border-style:dashed;opacity:.5;">
+      <div class="cert-icon">⏳</div>
+      <div class="cert-issuer">Meta · Coursera</div>
+      <div class="cert-name">Full Stack Developer <span style="font-size:11px;color:var(--muted);font-weight:400;">— Coming Soon</span></div>
+      <div class="cert-meta">
+        <span class="cert-year">2026</span>
+        <span class="cert-type">IN PROGRESS</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <!-- CONTACT -->
-<div class="section-wrap" id="contact-section">
+<div id="contact-section">
+  <canvas id="contact-canvas"></canvas>
   <div class="contact-inner">
-    <div class="section-header" style="justify-content:center;margin-bottom:28px;"><span class="section-num">// 06</span><h2 class="section-title">Contact</h2></div>
-    <h3 class="contact-tagline reveal">Let's build something <span>together.</span></h3>
-    <p class="contact-desc reveal">Open to internships, research collaborations, and interesting projects.</p>
-    <div class="contact-links reveal">
-      <a href="/cdn-cgi/l/email-protection#1363617a6a727d607b6624222121232753747e727a7f3d707c7e" class="contact-link">&#9993; Email</a>
-      <a href="https://linkedin.com/in/priyanshu-roy-aa733b293" target="_blank" class="contact-link">in LinkedIn</a>
-      <a href="https://github.com/Iampriyanshu2503" target="_blank" class="contact-link">&#8962; GitHub</a>
+    <div class="contact-eyebrow reveal">Available for opportunities</div>
+    <h2 class="contact-tagline reveal">
+      Let's build<br>
+      something <span>great.</span>
+    </h2>
+    <p class="contact-sub reveal">Open to internships, research collaborations,<br>and interesting projects. Let's connect.</p>
+
+    <div class="contact-cards reveal">
+      <a href="mailto:priyanshu712204@gmail.com" class="contact-card">
+        <div class="contact-card-icon">✉️</div>
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-val">priyanshu712204</div>
+      </a>
+      <a href="https://linkedin.com/in/priyanshu-roy-aa733b293" target="_blank" class="contact-card">
+        <div class="contact-card-icon">💼</div>
+        <div class="contact-card-label">LinkedIn</div>
+        <div class="contact-card-val">priyanshu-roy</div>
+      </a>
+      <a href="https://github.com/Iampriyanshu2503" target="_blank" class="contact-card">
+        <div class="contact-card-icon">⚡</div>
+        <div class="contact-card-label">GitHub</div>
+        <div class="contact-card-val">Iampriyanshu2503</div>
+      </a>
+      <a href="tel:+916289938847" class="contact-card">
+        <div class="contact-card-icon">📞</div>
+        <div class="contact-card-label">Phone</div>
+        <div class="contact-card-val">+91 62899 38847</div>
+      </a>
+    </div>
+
+    <div class="contact-availability reveal">
+      <span class="contact-avail-dot"></span>
+      Currently open to full-time &amp; internship roles
     </div>
   </div>
 </div>
@@ -841,6 +1165,108 @@ window.addEventListener('load', function(){
 });
 
 
+
+// ── CONTACT SECTION 3D BACKGROUND ────────────────────────────
+(function(){
+  if(typeof THREE === 'undefined') return;
+  var canvas = document.getElementById('contact-canvas');
+  if(!canvas) return;
+  var W = canvas.offsetWidth || window.innerWidth;
+  var H = canvas.offsetHeight || 500;
+  var renderer = new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(W,H);
+  renderer.setClearColor(0x000000,0);
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(60,W/H,0.1,100);
+  camera.position.z = 5;
+  scene.add(new THREE.AmbientLight(0x223344,2));
+  var pl = new THREE.PointLight(0x00d9ff,3,20); pl.position.set(0,3,3); scene.add(pl);
+  var pl2 = new THREE.PointLight(0x7fff5f,2,15); pl2.position.set(-4,-2,2); scene.add(pl2);
+
+  // Central torus with rotating rings
+  var torus = new THREE.Mesh(
+    new THREE.TorusGeometry(1.4,.015,8,120),
+    new THREE.MeshBasicMaterial({color:0x00d9ff,transparent:true,opacity:.4})
+  );
+  scene.add(torus);
+  var torus2 = new THREE.Mesh(
+    new THREE.TorusGeometry(1.0,.01,8,100),
+    new THREE.MeshBasicMaterial({color:0x7fff5f,transparent:true,opacity:.25})
+  );
+  torus2.rotation.x = Math.PI/3; scene.add(torus2);
+  var torus3 = new THREE.Mesh(
+    new THREE.TorusGeometry(1.8,.008,8,100),
+    new THREE.MeshBasicMaterial({color:0x00d9ff,transparent:true,opacity:.12})
+  );
+  torus3.rotation.y = Math.PI/4; scene.add(torus3);
+
+  // Node sphere
+  var sphere = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(.35,1),
+    new THREE.MeshPhongMaterial({color:0x00d9ff,emissive:0x003344,specular:0x7fff5f,shininess:80,transparent:true,opacity:.8})
+  );
+  scene.add(sphere);
+  var sphereWire = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(.36,1),
+    new THREE.MeshBasicMaterial({color:0x7fff5f,wireframe:true,transparent:true,opacity:.25})
+  );
+  scene.add(sphereWire);
+
+  // Orbiting dots
+  var orbitDots = [];
+  var dotAngles = [0,2.09,4.18];
+  dotAngles.forEach(function(a,i){
+    var d = new THREE.Mesh(
+      new THREE.SphereGeometry(.05,8,8),
+      new THREE.MeshBasicMaterial({color: i===1?0x7fff5f:0x00d9ff})
+    );
+    scene.add(d); orbitDots.push({mesh:d,angle:a,r:1.4,speed:.008+i*.003});
+  });
+
+  // Particles
+  var pN=300,pPos=new Float32Array(pN*3);
+  for(var i=0;i<pN;i++){var r=2.5+Math.random()*2.5,th=Math.random()*Math.PI*2,ph=Math.random()*Math.PI;pPos[i*3]=r*Math.sin(ph)*Math.cos(th);pPos[i*3+1]=r*Math.sin(ph)*Math.sin(th);pPos[i*3+2]=r*Math.cos(ph);}
+  var pGeo=new THREE.BufferGeometry(); pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  var particles=new THREE.Points(pGeo,new THREE.PointsMaterial({color:0x00d9ff,size:.035,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false}));
+  scene.add(particles);
+
+  var t=0,mx=0,my=0;
+  document.getElementById('contact-section').addEventListener('mousemove',function(e){
+    var r=canvas.getBoundingClientRect();
+    mx=(e.clientX-r.left)/r.width*2-1;
+    my=-((e.clientY-r.top)/r.height)*2+1;
+  });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    t+=0.012;
+    torus.rotation.z += 0.006; torus.rotation.x = Math.sin(t*.3)*.2;
+    torus2.rotation.z -= 0.004; torus2.rotation.y += 0.003;
+    torus3.rotation.x += 0.002; torus3.rotation.z += 0.003;
+    sphere.rotation.y += 0.01; sphere.rotation.x = Math.sin(t*.4)*.1;
+    sphereWire.rotation.y = sphere.rotation.y; sphereWire.rotation.x = sphere.rotation.x;
+    orbitDots.forEach(function(o){
+      o.angle += o.speed;
+      o.mesh.position.x = Math.cos(o.angle)*o.r;
+      o.mesh.position.z = Math.sin(o.angle)*o.r;
+      o.mesh.position.y = Math.sin(o.angle*.7)*.4;
+    });
+    particles.rotation.y += 0.002; particles.rotation.x = Math.sin(t*.2)*.05;
+    camera.position.x += (mx*.5 - camera.position.x)*.04;
+    camera.position.y += (my*.3 - camera.position.y)*.04;
+    camera.lookAt(scene.position);
+    renderer.render(scene,camera);
+  }
+  animate();
+
+  window.addEventListener('resize',function(){
+    var nw=canvas.offsetWidth,nh=canvas.offsetHeight;
+    renderer.setSize(nw,nh);
+    camera.aspect=nw/nh;camera.updateProjectionMatrix();
+  });
+})();
+
 // ── PROJECT CARD 3D ANIMATIONS ────────────────────────────────
 (function(){
   if(typeof THREE === 'undefined') return;
@@ -997,6 +1423,27 @@ window.addEventListener('load', function(){
 })();
 
 
+
+// ── CERT MODAL ────────────────────────────────────────────────
+function openCertModal(src, title){
+  document.getElementById('certModalImg').src = src;
+  document.getElementById('certModalTitle').textContent = title;
+  document.getElementById('certModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCertModal(e){
+  if(e.target === document.getElementById('certModal')){
+    document.getElementById('certModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape'){
+    document.getElementById('certModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
 // ── EXPERIENCE CARD 3D TILT ───────────────────────────────────
 document.querySelectorAll('.exp-card').forEach(function(card){
   card.addEventListener('mousemove', function(e){
@@ -1029,5 +1476,14 @@ document.querySelectorAll('.proj-card').forEach(function(card){
   });
 });
 </script>
+
+<!-- CERT MODAL -->
+<div class="cert-modal-overlay" id="certModal" onclick="closeCertModal(event)">
+  <div class="cert-modal-inner">
+    <button class="cert-modal-close" onclick="document.getElementById('certModal').classList.remove('open')">✕</button>
+    <img src="" id="certModalImg" class="cert-modal-img" alt="Certificate"/>
+    <div class="cert-modal-title" id="certModalTitle"></div>
+  </div>
+</div>
 </body>
 </html>
