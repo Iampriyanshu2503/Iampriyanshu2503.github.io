@@ -28,8 +28,8 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;line-height:1.7;overflow-x:hidden;cursor:none;}
 
 /* CURSOR */
-.cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen;}
-.cursor-ring{position:fixed;width:34px;height:34px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+.cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:999999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen;}
+.cursor-ring{position:fixed;width:34px;height:34px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:999998;transform:translate(-50%,-50%);opacity:.5;}
 
 /* CANVAS + SCANLINES */
 #three-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
@@ -350,13 +350,13 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 }
 .proj-card::before{
   content:'';position:absolute;inset:0;border-radius:16px;
-  background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(0,217,255,.07),transparent 60%);
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,50%),rgba(127,255,95,.07),transparent 60%);
   opacity:0;transition:opacity .4s;pointer-events:none;z-index:0;
 }
 .proj-card:hover{
   transform:translateY(-10px);
-  box-shadow:0 0 0 1px rgba(0,217,255,.35),0 24px 60px rgba(0,217,255,.12);
-  border-color:rgba(0,217,255,.4);
+  box-shadow:0 0 0 1px rgba(127,255,95,.35),0 24px 60px rgba(127,255,95,.12);
+  border-color:rgba(127,255,95,.4);
 }
 .proj-card:hover::before{opacity:1;}
 
@@ -385,29 +385,29 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 
 /* body */
 .proj-body{padding:24px 24px 20px;display:flex;flex-direction:column;flex:1;position:relative;z-index:2;}
-.proj-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:3px;margin-bottom:10px;opacity:.65;}
+.proj-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--accent2);letter-spacing:3px;margin-bottom:10px;opacity:.65;}
 .proj-card.cyber .proj-num{color:var(--accent2);}
 .proj-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--heading);letter-spacing:-.5px;margin-bottom:6px;}
 .proj-tagline{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin-bottom:14px;}
 .proj-card.cyber .proj-tagline{color:var(--accent2);}
 .proj-desc{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:18px;flex:1;}
 .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;}
-.proj-tag{font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid rgba(0,217,255,.2);color:var(--muted);border-radius:4px;letter-spacing:.5px;transition:border-color .2s,color .2s;}
-.proj-card:hover .proj-tag{border-color:rgba(0,217,255,.4);color:var(--text);}
+.proj-tag{font-family:'Share Tech Mono',monospace;font-size:10px;padding:4px 10px;border:1px solid rgba(127,255,95,.2);color:var(--muted);border-radius:4px;letter-spacing:.5px;transition:border-color .2s,color .2s;}
+.proj-card:hover .proj-tag{border-color:rgba(127,255,95,.4);color:var(--text);}
 .proj-card.cyber .proj-tag{border-color:rgba(127,255,95,.2);}
 .proj-card.cyber:hover .proj-tag{border-color:rgba(127,255,95,.4);}
 .proj-btns{display:flex;gap:10px;flex-wrap:wrap;}
 .proj-btn{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 18px;text-decoration:none;border-radius:4px;transition:all .25s;display:inline-flex;align-items:center;gap:6px;}
-.proj-btn-demo{background:var(--accent);color:var(--bg);}
+.proj-btn-demo{background:var(--accent2);color:var(--bg);}
 .proj-btn-demo:hover{background:#fff;color:var(--bg);}
-.proj-btn-git{background:transparent;color:var(--accent);border:1px solid rgba(0,217,255,.35);}
-.proj-btn-git:hover{background:rgba(0,217,255,.1);border-color:var(--accent);}
+.proj-btn-git{background:transparent;color:var(--accent2);border:1px solid rgba(127,255,95,.35);}
+.proj-btn-git:hover{background:rgba(127,255,95,.1);border-color:var(--accent2);}
 .proj-card.cyber .proj-btn-demo{background:var(--accent2);color:var(--bg);}
 .proj-card.cyber .proj-btn-demo:hover{background:#fff;}
 .proj-card.cyber .proj-btn-git{color:var(--accent2);border-color:rgba(127,255,95,.35);}
 .proj-card.cyber .proj-btn-git:hover{background:rgba(127,255,95,.1);border-color:var(--accent2);}
 /* glowing border animation */
-@keyframes borderGlow{0%,100%{box-shadow:0 0 0 1px rgba(0,217,255,.35),0 24px 60px rgba(0,217,255,.12)}50%{box-shadow:0 0 0 1px rgba(0,217,255,.7),0 24px 80px rgba(0,217,255,.22)}}
+@keyframes borderGlow{0%,100%{box-shadow:0 0 0 1px rgba(127,255,95,.35),0 24px 60px rgba(127,255,95,.12)}50%{box-shadow:0 0 0 1px rgba(127,255,95,.7),0 24px 80px rgba(127,255,95,.22)}}
 .proj-card:hover{animation:borderGlow 2s ease-in-out infinite;}
 @keyframes cyberGlow{0%,100%{box-shadow:0 0 0 1px rgba(127,255,95,.35),0 24px 60px rgba(127,255,95,.12)}50%{box-shadow:0 0 0 1px rgba(127,255,95,.7),0 24px 80px rgba(127,255,95,.22)}}
 .proj-card.cyber:hover{animation:cyberGlow 2s ease-in-out infinite;}
@@ -555,6 +555,7 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects-section">Projects</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact-section">Contact</a></li>
   </ul>
 </nav>
@@ -581,7 +582,7 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
       <h2 class="about-headline">Building Systems,<br><span>Engineering the Future.</span></h2>
       <div class="about-body">
         <p>Hey, I'm <b>Priyanshu Roy</b>, a Computer Science undergrad at Heritage Institute of Technology, Kolkata — passionate about turning complex problems into elegant, scalable solutions.</p>
-        <p>My work spans <b>MERN-stack platforms</b>, visualizing cryptographic protocols, and building systems at the intersection of <b>blockchain, ML, and cybersecurity</b>.</p>
+        <p>My work spans <b>MERN-stack platforms</b>, visualizing cryptographic protocols, and building systems at the intersection of <b>blockchain, ML, and cybersecurity</b>. Coursework includes DSA, OS, DBMS, OOP, Cryptography, Blockchain, ML, and Cyber Security.</p>
         <p>I believe in clean architecture, meaningful user experiences, and software that actually makes a difference.</p>
       </div>
       <div class="about-philosophy">
@@ -643,7 +644,7 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
         <div class="proj-num">PROJECT_01</div>
         <div class="proj-name">RescueNet</div>
         <div class="proj-tagline">Smart Surplus Food Redistribution System</div>
-        <p class="proj-desc">Streamlines donation and distribution of surplus food by connecting donors with verified receivers — minimizing food waste and improving accessibility through real-time logistics.</p>
+        <p class="proj-desc">Engineered a scalable MERN platform to facilitate redistribution of surplus food — with real-time logistics tracking via Map APIs, an analytics dashboard with automated Food Safety tagging, and event-driven collection workflows.</p>
         <div class="proj-tags">
           <span class="proj-tag">TypeScript</span><span class="proj-tag">Node.js</span><span class="proj-tag">React</span><span class="proj-tag">MongoDB</span><span class="proj-tag">Map APIs</span>
         </div>
@@ -663,7 +664,7 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
       </div>
       <div class="proj-body">
         <div class="proj-num">PROJECT_02</div>
-        <div class="proj-name">DietCraft</div>
+        <div class="proj-name">DietCraft <span style="font-size:10px;color:var(--muted);font-family:'Share Tech Mono',monospace;">· Personal</span></div>
         <div class="proj-tagline">Custom Diet & Meal Plan Generator</div>
         <p class="proj-desc">Analyzes user goals, body metrics, and food preferences to generate personalized, nutritionally balanced meal plans for weight management and healthy living.</p>
         <div class="proj-tags">
@@ -686,10 +687,10 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
       <div class="proj-body">
         <div class="proj-num">PROJECT_03</div>
         <div class="proj-name">CryptoVerse</div>
-        <div class="proj-tagline">Gamified Cryptography Challenges</div>
+        <div class="proj-tagline">Cryptographic Visualization Platform</div>
         <p class="proj-desc">A gamified cryptography platform with daily challenges, timed speed rounds, and real-time room battles — compete in cipher puzzles and sharpen your cryptographic skills.</p>
         <div class="proj-tags">
-          <span class="proj-tag">React</span><span class="proj-tag">TypeScript</span><span class="proj-tag">Web Crypto API</span><span class="proj-tag">D3.js</span><span class="proj-tag">Socket.io</span>
+          <span class="proj-tag">React</span><span class="proj-tag">TypeScript</span><span class="proj-tag">Web Crypto API</span><span class="proj-tag">D3.js</span><span class="proj-tag">Git</span>
         </div>
         <div class="proj-btns">
           <a href="#" class="proj-btn proj-btn-demo">&#9654; Live Demo</a>
@@ -749,7 +750,7 @@ footer span{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--m
 </div>
 
 <!-- CERTIFICATIONS -->
-<div class="section-wrap" style="max-width:100%;">
+<div class="section-wrap" id="certifications" style="max-width:100%;">
   <div class="section-header reveal"><span class="section-num">// 06</span><h2 class="section-title">Certifications</h2><div class="section-line"></div></div>
   <div class="certs-grid">
 
@@ -1498,7 +1499,7 @@ document.querySelectorAll('.proj-card').forEach(function(card){
 </script>
 
 <!-- CERT MODAL -->
-<div id="certModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:24px;">
+<div id="certModal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.92);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:24px;cursor:default;">
   <div style="position:relative;max-width:860px;width:100%;animation:modalIn .25s ease;">
     <button onclick="closeCert()" style="position:absolute;top:-16px;right:-16px;width:36px;height:36px;border-radius:50%;background:#00d9ff;color:#060a0f;border:none;font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;">✕</button>
     <img id="certModalImg" src="" style="width:100%;border-radius:10px;border:1px solid rgba(0,217,255,.3);box-shadow:0 0 80px rgba(0,217,255,.2);display:block;" alt="Certificate"/>
